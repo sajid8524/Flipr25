@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Side Panel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 10px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    #summary {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-y: auto;
+      max-height: 80vh;
+    }
+  </style>
+</head>
+<body>
+  <h1>Summary</h1>
+  <div id="summary">
+    <p>No summary available yet.</p>
+  </div>
+
+  <script>
+    // Function to update the side panel with the summary
+    function updateSidePanel(content) {
+      const summaryDiv = document.getElementById("summary");
+      summaryDiv.innerHTML = ""; // Clear existing content
+      summaryDiv.textContent = content; // Add new summary
+    }
+
+    // Listen for messages from the background script or content script
+    chrome.runtime.onMessage.addListener((message) => {
+      if (message.action === "updateSidePanel" && message.content) {
+        updateSidePanel(message.content);
+      }
+    });
+  </script>
+</body>
+</html>
